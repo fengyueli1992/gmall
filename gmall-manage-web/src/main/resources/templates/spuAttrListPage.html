@@ -63,6 +63,8 @@
     </div>
 </div>
 <div th:include="spuInfoPage"></div>
+<div th:include="skuListPage"></div>
+<div th:include="skuInfoPage"></div>
 <script language="JavaScript">
     function reloadSpuList(rec) {
         var catalog3Id;
@@ -92,10 +94,59 @@
         }else{
             $("#spu_dlg").dialog("open");
             initSpuSaleAttrListDatagrid();
+            initSpuImgListDatagrid();
+            //初始化webuploader
+            initUploader();
         }
       
     }
+    function editSpuInfo() {
+       var spuId= $("#spulist_dg").datagrid("getSelected").id;
+       $.post("getSpuInfo",{spuId:spuId},function (spuInfo) {
+           $("#spu_dlg").dialog("open");
+           initSpuForm(spuInfo);
+           initSpuSaleAttrListDatagrid(spuInfo);
+           initSpuImgListDatagrid(spuInfo);
+           //初始化webuploader
+           initUploader();
+       });
 
+    }
+    function showSkuInfoList() {
+        //得到选择的行
+        var spuRow=$("#spulist_dg").datagrid("getSelected");
+        if(spuRow!=null){
+            var spuId=spuRow.id;
+            var catalog3Id=$("#ctg3ForSpuList").combobox("getValue");
+            $("#skulist_dlg").dialog("open");
+            //初始化列表详情
+            initSkuListDlg(spuId);
+
+        }else{
+            alert("请选择spu");
+        }
+
+
+    }
+    function addSkuInfo() {
+        var spuRow=$("#spulist_dg").datagrid("getSelected");
+        if(spuRow!=null){
+            //打开增加对话框
+            var ctg3Id= $("#ctg3ForSpuList").combobox("getValue");
+            var spuId=spuRow.id;
+            $("#sku_dlg").dialog("open");
+
+            //初始化平台属性
+            initAttrInfoGroup(ctg3Id);
+            //初始化销售属性
+            initSpuSaleAttrGroup(spuId,skuInfo);
+            //初始化商品图片列表
+            initSkuImgListDatagrid(spuId) ;
+
+        }else{
+            alert("请选择spu");
+        }
+    }
 </script>
 
 </body>

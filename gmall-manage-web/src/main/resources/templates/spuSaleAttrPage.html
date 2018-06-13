@@ -40,7 +40,7 @@
         $("#spuSaleAttrValueDg").datagrid("loadData",{total:0,rows:[]});
         var spuSaleAttrValueDg= $("#spuSaleAttrValueDg").datagrid({
             columns: [[
-                {field: 'id', title: '销售属性值id',width:80},
+               // {field: 'id', title: '销售属性值id',width:80},
                 {field: 'saleAttrValueName', title: '销售属性值名称',width:180,
                     editor:{
                     type:'validatebox',
@@ -61,25 +61,35 @@
 
     //添加商口详情页的销售列表
     function saveSpuSaleAttr() {
-        var id=$("#saleAttrSelect").combobox("getValue");
+        var saleAttrId=$("#saleAttrSelect").combobox("getValue");
         var name=$("#saleAttrSelect").combobox("getText");
+
+
+        var rowIndex = $("#spuSaleAttrDg").datagrid("getRowIndex",saleAttrId);
+        console.log("delete rowIndex:"+rowIndex);
+        if(rowIndex>=0){
+            $("#spuSaleAttrDg").datagrid("deleteRow",rowIndex);
+        }
+
         var spuSaleAttrValueJson= $("#spuSaleAttrValueDg").datagrid("getData");
         $("#spuSaleAttrDg").datagrid("appendRow",{
 
-            id:id,
+            id:saleAttrId,
             saleAttrName:name,
             spuSaleAttrValueJson:JSON.stringify(spuSaleAttrValueJson)
         });
         $("#spuSaleAttr_dlg").dialog("close");
         
     }
+    //属性值添加
     function addSpuSaleAttrValue() {
         var id=$("#saleAttrSelect").combobox("getText");
         $("#spuSaleAttrValueDg").datagrid("appendRow",{
 
-            id:id,
+            //id:id,
             saleAttrValueName:""
         });
+
     }
 </script>
 </body>

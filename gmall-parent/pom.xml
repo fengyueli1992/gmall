@@ -33,7 +33,7 @@
         <beanUtils.version>1.9.3</beanUtils.version>
         <spring-test.version>4.3.17</spring-test.version>
         <spring-boot-test.version>1.5.10</spring-boot-test.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.12</junit.version>
 
     </properties>
     <parent>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:text="${hello}">人生</div>
+
+//循环
+<div th:each="e:${list}" th:text="${e}"></div>
+
+//判断
+<div th:if="1==1">123</div>
+<div th:if="1==0">345</div>
+
+<table border="1">
+    <tr th:each="skuImage:${skuInfo?.skuImageList}">
+        <td th:text="${skuImage.id}">
+        </td>
+        <td th:text="${skuImage.imgName}">
+        </td>
+
+    </tr>
+</table>
+<div th:text="(10=='10')?'是10':'不是10'">
+</div>
+<div th:if="10=='8'" >123456</div>
+</body>
+</html>
